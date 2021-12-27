@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="styles.css" />
+  <title>Доска | Проект 4</title>
+</head>
+<body>
+<div class="container" id="board"></div>
+<script src="app.js"></script>
+</body>
+</html>
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #111;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  overflow: hidden;
+  margin: 0;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  max-width: 400px;
+}
+
+.square {
+  width: 16px;
+  height: 16px;
+  background: black;
+  margin: 2px;
+  box-shadow: 0 0 2px;
+  transition: 2s ease;
+}
+
+.square:hover {
+  transition-duration: 0s;
+}
+const board = document.querySelector('#board')
+const colors = ['#fd8b8b', '#fdcf8b', '#f2fd8b', '#a5fd8b', '#77fcd4', '#77e8fc', '#77a1fc', '#9477fc', '#c777fc', '#fc77d4']
+const SQUARES_NUMBER = 500
+
+for (let i = 0; i < SQUARES_NUMBER; i++) {
+    const square = document.createElement('div')
+    square.classList.add('square')
+
+    square.addEventListener('mouseover', () => setColor(square))
+
+    square.addEventListener('mouseleave', () => removeColor(square))
+
+    board.append(square)
+}
+
+function setColor(element) {
+    const color = getRandomColor()
+    element.style.backgroundColor = color
+    element.style.boxShadow = `10 10 0px ${color}, 0 0 20px $`
+}
+
+function removeColor(element) {
+    element.style.backgroundColor = "black"
+    element.style.boxShadow = `0 0 2px black`
+}
+
+function getRandomColor() {
+    const index = Math.floor(Math.random() * colors.length)
+    return colors[index]
+}
